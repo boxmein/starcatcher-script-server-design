@@ -1,5 +1,5 @@
 // SASS style for the thing
-//inmake sass browse.scss intermediate.css & myth intermediate.css browse.css
+//inmake sass browse.scss intermediate.css --sourcemap=none & myth intermediate.css browse.css
 
 // Override unsemantic's side padding rule
 .grid-container { padding: 0; }
@@ -176,6 +176,7 @@ main {
 
   .source pre > code {
     white-space: pre-wrap;
+    word-wrap: break-word;
     max-height: 1500px;
     overflow-y: scroll;
   }
