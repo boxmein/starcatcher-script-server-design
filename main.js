@@ -8,6 +8,7 @@ window.addEventListener('load', function() {
   window.appState = {};
 
   var SPINNER = '<div class="spinner"></div>';
+  var MAINdotlua = '../main.lua';
 
   // Underscore templates for a single list item, and a script
   var tListItem = _.template($('#listitemtemplate').html());
@@ -137,7 +138,7 @@ window.addEventListener('load', function() {
 
     var deferred = new $.Deferred();
 
-    $.ajax('../main.lua?info='+id)
+    $.ajax(MAINdotlua + '?info='+id)
           .fail(deferred.reject)
           .done(function(data) {
 
@@ -161,7 +162,7 @@ window.addEventListener('load', function() {
   function getSourceByID(id) {
     var deferred = new $.Deferred();
 
-    $.ajax('../main.lua?get='+ id)
+    $.ajax(MAINdotlua + '?get='+ id)
           .fail(deferred.reject)
           .done(deferred.resolve);
 
@@ -187,7 +188,7 @@ window.addEventListener('load', function() {
 
     $('#next-page').html(SPINNER);
 
-    $.ajax('../main.lua?IDs=' + (start !== 0 ? start + '-' : '') + (n+start))
+    $.ajax(MAINdotlua + '?IDs=' + (start !== 0 ? start + '-' : '') + (n+start))
           .fail(deferred.reject)
           .done(function(data) {
 
@@ -264,7 +265,7 @@ window.addEventListener('load', function() {
   // :: () -> $.Deferred [Script]
   function getPreliminaryData() {
     var deferred = new $.Deferred();
-    $.ajax('./main.lua')
+    $.ajax(MAINdotlua)
            .fail(deferred.reject)
            .done(function(data) {
       var objs = [], lines = data.split('\n');
