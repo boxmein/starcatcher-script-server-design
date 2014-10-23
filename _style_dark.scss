@@ -1,0 +1,19 @@
+// Color theme: Dark
+
+// Text color
+$color: #9D9D9D;
+
+// Background of the entire document.
+$bg: #191919;
+
+// Background of the entire <main> - aka, the scripts list.
+$list_bg: #0F0F0F;
+
+// Background of the script view.
+$view_bg: #070707;
+
+// Accent color 1: Really strong accent
+$accent: #E9F511;
+
+// Accent color 1: Really weak, but same color
+$accent1: darken($accent, 40%);

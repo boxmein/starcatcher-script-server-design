@@ -1,0 +1,207 @@
+// SASS style for the thing
+//inmake sass browse.scss intermediate.css & myth intermediate.css browse.css
+
+// Override unsemantic's side padding rule
+.grid-container { padding: 0; }
+
+// Override Highlight.js background colors: I know better!
+.hljs { background: transparent !important; }
+
+// style_light vs style_dark
+@import "style_dark";
+
+$font: monospace;
+$h1font: "Lobster", sans-serif;
+
+$w1: 700px;
+$w2: 800px;
+
+body {
+  font-family: $font;
+  background-color: $bg;
+  color: $color;
+}
+
+// Header!
+header {
+  max-width: $w1;
+  margin: 50px auto;
+  padding: 15px;
+
+  nav, p.sub {
+    text-align: center;
+  }
+
+  nav a {
+    display: inline-block;
+    
+    padding: 5px 0px;
+    margin: 0px 5px;
+    
+    background-color: transparent;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.1s ease, color 0.1s ease;
+    
+    &:hover {
+      border-bottom: 1px solid $accent;
+    }
+
+    &.active {
+      border-bottom: 1px solid $accent;
+    }
+  }
+
+  h1 {
+    font-family: $h1font;
+    font-size: 2em;
+    text-align: center;
+
+    font-weight: normal;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    color: $accent;
+
+
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Script browser stuff
+main {
+  max-width: 900px;
+  margin: 15px auto;
+  background-color: $view_bg;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
+}
+
+#script-list {
+  padding-top: 25px;
+  padding-bottom: 10px;
+
+  padding-left: 0;
+  padding-right: 0;
+
+  background-color: $list_bg;
+
+  h4 {
+    margin: 0 0 10px 5px;
+    font-weight: normal;
+    // color: $accent;
+    text-align: center;
+  }
+
+  ul {
+    
+    list-style-type: none;
+    
+    margin: 0;
+    padding: 0;
+
+    li {
+
+      min-height: 30px;
+
+      padding: 5px 15px;
+      margin: 2px 0px;
+      transition: background-color 0.1s ease, color 0.1s ease;
+      cursor: pointer;      
+
+      &:hover { background-color: $accent1; }
+      &.viewing { border-left: 1px solid $accent; padding-left: 14px; }
+
+      // okay, enough nesting!
+      .title {
+        color: $accent;
+        font-weight: bold;
+      }
+        
+      // nicely-ish center a spinner in the list item
+      .spinner {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      &.WAITING { border-left: 1px solid $accent1; }
+    }
+  }
+
+  &.collapsed ul {
+    max-height: 300px; 
+    overflow: hidden;
+  }
+}
+
+#collapse-list, #next-page {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  &:hover { background-color: $accent1; color: $accent; }
+}
+
+// Look at a script UP CLOSE
+#script-view {
+
+  background-color: $view_bg;
+  height: 100%;
+  min-height: 400px;
+
+  h2 {
+    color: $accent;
+  }
+
+  .version {
+    font-size: 0.6em;
+    vertical-align: super;
+    color: $color;
+  }
+  
+  .author {
+    color: $color;
+    font-weight: normal;
+  }
+
+  .shortline {
+    color: $accent1;
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; } 
+  }
+
+  .description, .changelog {
+    white-space: pre-line;
+    margin: 15px 0px;
+  }
+
+  .source pre > code {
+    white-space: pre-wrap;
+    max-height: 1500px;
+    overflow-y: scroll;
+  }
+}
+
+
+.spinner {
+  width: 10px;
+  height: 10px;
+  margin: auto; 
+  animation: spin 2s linear infinite;
+
+  background-color: $accent;
+}
+
+.script > .spinner { margin-top: 25%; }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+   50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+footer {
+  max-width: 900px; 
+  margin: 0 auto;
+  color: lighten($bg, 10%);
+  text-align: right;
+}
