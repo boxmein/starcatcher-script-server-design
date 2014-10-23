@@ -274,7 +274,7 @@ window.addEventListener('load', function() {
       objs = _.map(lines, function(each) {
         var scr = Script.fromXHR(each);
         console.log('fetched script', scr); 
-        max = Math.max(max, scr.id);
+        max = Math.max(max, scr.data.ID);
         return Script.fromXHR(each);
       });
       // max should be the last ID we fetched preliminarily
