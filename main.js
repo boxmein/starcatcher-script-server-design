@@ -250,6 +250,11 @@ window.addEventListener('load', function() {
   // :: () -> mutate DOM
   function refreshScriptList() {
     
+    // prune the script list of duplicate/weird entries
+    state.scriptList = _.reject(_.uniq(state.scriptList), function(e){ 
+      return e.data.ID == -1; 
+    }); 
+
     $('#script-list-ul').html(renderScriptList(state.scriptList))
                         .find('li')
                         .click(function(evt) {
@@ -315,7 +320,6 @@ window.addEventListener('load', function() {
         displayScriptByID(num);
       } catch (err) {}
     }
-
   }).fail(function(err) {
     $('#script-view').html('error downloading initial set of data: ' + err);
   });
