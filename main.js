@@ -200,11 +200,18 @@ window.addEventListener('load', function() {
 
       console.log('got response, now parsing it', data);
 
-      $('#next-page').html('next page');
-
       // Parse the data into an array of ints
       // also, a necessary evil.
-      deferred.resolve(eval("(function(){return [" + data + "];})()"));
+
+      var arr = eval("(function(){return [" + data + "];})()");
+
+      if (arr.length == 0) {
+        $('#next-page').off('click').addClass('disabled').html('that\'s all!');
+      }
+      else 
+        $('#next-page').html('more');
+
+      deferred.resolve(arr);
     });
 
     return deferred;
@@ -291,12 +298,12 @@ window.addEventListener('load', function() {
     return deferred;
   }
 
-  // Keep track of all the Scripts we know of.
-  // :: [Script]
-  state.scriptList = [];
-
   getPreliminaryData().done(function(data) {
     [].push.apply(state.scriptList, data);
+    
+    // UX over anything lol
+    $('#script-view').html('<h4>Pick a script from the left to view it here.</h4>');
+    
 
     // I wonder what this does
     refreshScriptList();
