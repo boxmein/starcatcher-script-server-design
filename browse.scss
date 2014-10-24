@@ -137,8 +137,12 @@ main {
 #collapse-list, #next-page {
   text-align: center;
   padding: 10px;
-  cursor: pointer;
-  &:hover { background-color: $accent1; color: $accent; }
+  
+  &:not(.disabled):hover { 
+    cursor: pointer;
+    background-color: $accent1; 
+    color: $accent; 
+  }
 }
 
 // Look at a script UP CLOSE
