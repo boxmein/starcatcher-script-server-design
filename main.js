@@ -185,7 +185,7 @@ window.addEventListener('load', function() {
 
     n = n ||10; 
 
-    start = start || state.lastStart ||0;
+    start = 1 + (start || state.lastStart ||0);
     
     // move lastStart by n elements
     state.lastStart += n;
