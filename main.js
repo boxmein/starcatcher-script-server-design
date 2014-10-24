@@ -144,7 +144,10 @@ window.addEventListener('load', function() {
     $.ajax(MAINdotlua + '?info='+id)
           .fail(deferred.reject)
           .done(function(data) {
-
+      
+      if (data == '') 
+        deferred.resolve(undefined);
+      
       // it's the lesser of two evals
       try {
         var obj = Script.fromXHR(data);
