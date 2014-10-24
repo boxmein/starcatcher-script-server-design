@@ -17,6 +17,9 @@ window.addEventListener('load', function() {
   // Last call to 'next page' started off this page!
   state.lastStart = 0;
 
+  // Keep track of all the Scripts we know of.
+  // :: [Script]
+  state.scriptList = [];
 
   /*
     Represents a script file.
