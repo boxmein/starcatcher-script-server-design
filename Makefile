@@ -3,7 +3,7 @@
 # Assumes you've got all the dependencies though :/ 
 
 
-CLOSURE_COMPILER=$HOME/Programs/closure-compiler/compiler.jar
+CLOSURE_COMPILER=closure-compiler
 TEMPLATES=partials/edit-submit-view._template list-item._template script._template
 PACKAGE_FILES=index.css main.min.js index.html highlight.pack.js
 
