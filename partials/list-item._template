@@ -1,0 +1,5 @@
+<li class="script-item <%= status %>" data-id="<%= ID %>">
+  <span class="id">(<%= ID %>)</span>
+  <span class="title"><%= title %></span>
+  <div class="author">by <%= author %></div>
+</li>

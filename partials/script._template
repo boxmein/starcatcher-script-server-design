@@ -1,0 +1,21 @@
+<div class="script">
+  <h2><%= title %><span class="version">v<%= version %></span>
+      <span class="author">by <%= author %></span></h2>
+
+  <% if (description) { %> 
+  <h3>Description</h3> 
+  <div class="description"><%= description %></div>
+  <% } %>
+
+  <% if (changelog) { %> 
+  <h3>Changelog</h3> 
+  <div class="changelog"><%= changelog %></div>
+  <% } %>
+
+  <h3>Source code</h3>
+  <div class="source">
+    <pre><code class="lua" id="sourcecodehere"><%= source %>
+    </pre></code>
+  </div>
+
+</div>
