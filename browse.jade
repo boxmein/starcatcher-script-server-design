@@ -1,0 +1,29 @@
+//- Main page, extends the layout code.
+//- jade browse.jade browse_.html
+
+extends layout
+block main
+  .grid-container
+    #script-list.grid-33.mobile-grid-100.hide-on-directlink
+      h4 Scripts
+      ul#script-list-ul
+        .spinner
+      #next-page more
+      #collapse-list.hide-on-desktop &#8801;
+
+    #script-view.grid-66.mobile-grid-100
+      .script
+        .spinner
+
+block append body
+  script#scripttemplate(type='text/x-underscore-template')
+    include partials/script._template
+  script#submitviewtemplate(type='text/x-underscore-template')
+    include partials/edit-submit-view._template
+  script#listitemtemplate(type='text/x-underscore-template')
+    include partials/list-item._template
+
+  script(src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js')
+  script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+  script(src='highlight.pack.js')
+  script(src='main.js')

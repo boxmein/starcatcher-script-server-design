@@ -1,0 +1,32 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/unsemantic/0/unsemantic-grid-responsive.css')
+    link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/railscasts.min.css')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lobster')
+    link(rel='stylesheet', href='browse.css')
+
+  body
+    block body
+      header
+        block header
+          h1 Script Server
+          nav
+            a(href='http://tpt.io/:19400') thread 
+            | &middot;
+            a(href='https://github.com/boxmein/starcatcher-script-server-design/blob/master/README.md') project
+            | &middot;
+            a(href='#' class='active') browse
+            | &middot;
+            a(href='./submit.lua') submit
+            | &middot;
+            a(href='https://github.com/boxmein/starcatcher-script-server-design') github
+      main
+        block main
+  
+      footer
+        block footer
+          .spinner(style='display: inline-block')
+          | v1.2 - design &copy; boxmein 1414153213
