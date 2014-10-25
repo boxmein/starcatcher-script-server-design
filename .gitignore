@@ -1,7 +1,11 @@
+# Build output
 .sass-cache
+
 *.map
-intermediate.css
 *.min.js
-main.lua-*
-main.lua
-browse.css
+*.tar.gz
+
+intermediate.css
+index.css
+
+index.html
