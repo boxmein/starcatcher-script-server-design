@@ -1,5 +1,4 @@
 // 
-//inmake closure-compiler --js main.js --js_output_file main.min.js
 // Stuff to be done after everything loads
 window.addEventListener('load', function() {
   'use strict';  
