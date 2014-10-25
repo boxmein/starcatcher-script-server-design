@@ -3,8 +3,9 @@
 
 *.map
 *.min.js
+*.tar.gz
 
 intermediate.css
-browse.css
+index.css
 
 index.html
