@@ -1,5 +1,5 @@
-# A quick makefile
-# Gets a bit crazy, otherwise
+# A quick makefile to generate all the end result files for you!
+# Inmake got a bit tedious...
 # Assumes you've got all the dependencies though :/ 
 
 
