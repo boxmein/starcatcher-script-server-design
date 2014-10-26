@@ -3,9 +3,9 @@
 # Assumes you've got all the dependencies though :/ 
 
 
-CLOSURE_COMPILER=closure-compiler
+CLOSURE_COMPILER=closure-compiler --compilation_level ADVANCED_OPTIMIZATIONS
 TEMPLATES=partials/edit-submit-view._template partials/list-item._template partials/script._template
-PACKAGE_FILES=index.css main.min.js index.html highlight.pack.js
+PACKAGE_FILES=index.css main.min.js index.html highlight.pack.js main.js
 
 all: index.html index.css main.min.js
 
