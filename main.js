@@ -8,10 +8,12 @@ window.addEventListener('load', function() {
 
   var SPINNER = '<div class="spinner"></div>';
   var MAINdotlua = '../main.lua';
+  var PASTEdotlua = '../paste.lua';
 
   // Underscore templates for a single list item, and a script
   var tListItem = _.template($('#listitemtemplate').html());
   var tScript = _.template($('#scripttemplate').html());
+  var tSubmitView = _.template($('#submitviewtemplate').html());
 
   // Last call to 'next page' started off this page!
   state.lastStart = 0;
@@ -302,27 +304,6 @@ window.addEventListener('load', function() {
     return deferred;
   }
 
-  getPreliminaryData().done(function(data) {
-    [].push.apply(state.scriptList, data);
-    
-    // UX over anything lol
-    $('#script-view').html('<h4>Pick a script from the left to view it here.</h4>');
-    
-
-    // I wonder what this does
-    refreshScriptList();
-
-    // Handle hash after we have the data from our script fetch
-    if (location.hash && /^#(\d+)$/.test(location.hash)) {
-      try {
-        var num = parseInt(location.hash.match(/^#(\d+)$/)[1], 10);
-        displayScriptByID(num);
-      } catch (err) {}
-    }
-  }).fail(function(err) {
-    $('#script-view').html('error downloading initial set of data: ' + err);
-  });
-
   // Mobile collapse functionality
   $('#collapse-list').click(function(evt) {
     $(evt.target.parentNode).toggleClass('collapsed');
@@ -353,4 +334,95 @@ window.addEventListener('load', function() {
       
     });
   });
+
+
+
+
+  /*
+
+    Submit page functionality
+
+  */
+
+  function submitPage(evt, data) {
+    if (evt && evt.preventDefault) evt.preventDefault();
+    
+    // Still add a hash to show we're on a different page
+    window.location.hash = '#submit-page';
+    window.scrollTo(0, 0);
+
+    $('nav .active').removeClass('active');
+    $(this).addClass('active');
+
+    $('#script-view').html(tSubmitView({data: {}}));
+
+    // Set up Ace
+
+    var editor = ace.edit('submit-source');
+    editor.setOptions({
+      minLines: 20,
+      maxLines: 500
+    });
+    editor.setTheme('ace/theme/twilight'); // Close enough
+    editor.getSession().setMode('ace/mode/lua');
+
+    // On submit...
+
+    $('#submit').click(function(evt) {
+      $(this).html(SPINNER);
+
+      // collect the form elements
+
+      var submit_form = {
+        ID: $(this).data('scriptid'),
+        script: editor.getValue(),
+        name: $('#submit-title').val(),
+        author: $('#submit-author').val(),
+        description: $('#submit-description').val(),
+        changelog: $('#submit-changelog').val() 
+      };
+
+      console.log(submit_form, $.param(submit_form));
+
+      $.ajax(PASTEdotlua, {
+        'method': 'POST', 
+        'data': submit_form
+      }).then(function(data, txtstatus){
+        if (txtstatus == 'success')
+          $(this).html('this submission is now in the mod queue :D');
+        else
+          $(this).html('something went wrong. look! a word!: ' + txtstatus);
+      },function(err){
+        $(this).html('submission failed: ' + err);
+      });
+    });
+  }
+
+  $('#submit-page').click(submitPage);
+  
+  getPreliminaryData().done(function(data) {
+    [].push.apply(state.scriptList, data);
+    
+    // UX over anything lol
+    $('#script-view').html('<h4>Pick a script from the left to view it here.</h4>');
+    
+
+    // I wonder what this does
+    refreshScriptList();
+
+    // Handle hash after we have the data from our script fetch
+    
+    if (location.hash && location.hash == '#submit-page') {
+      submitPage();
+    }
+    else if (location.hash && /^#(\d+)$/.test(location.hash)) {
+      try {
+        var num = parseInt(location.hash.match(/^#(\d+)$/)[1], 10);
+        displayScriptByID(num);
+      } catch (err) {}
+    } 
+  }).fail(function(err) {
+    $('#script-view').html('error downloading initial set of data: ' + err);
+  });
+
 });
