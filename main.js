@@ -354,6 +354,12 @@ window.addEventListener('load', function() {
     $('nav .active').removeClass('active');
     $(this).addClass('active');
 
+    $('#browse-page').one('click', function() {
+      $('nav .active').removeClass('active');
+      $(this).addClass('active');
+      $('#script-view').html('<h4>Pick a script on the left to view it.</h4>');
+    });
+
     $('#script-view').html(tSubmitView({data: {}}));
 
     // Set up Ace
