@@ -1,0 +1,48 @@
+<div class="submit-script">
+  
+  <h2>Submit a script!</h2>
+
+  <div class="metadata">
+    
+    <input
+      type="text" 
+      id="submit-title" 
+      value="<%= data.title ||'' %>" 
+      placeholder="Title">
+
+    <input 
+      type="text"
+      id="submit-author"
+      value="<%= data.author ||'' %>"
+      placeholder="Author">
+
+    <h3>Description</h3>
+    <textarea 
+      id="submit-description" 
+      placeholder="Write a short description of your mod here."
+      ><%= data.description ||'' %></textarea>
+
+    <h3>Changelog</h3>
+    <textarea 
+      id="submit-changelog" 
+      placeholder="Explain recent changes to the mod."
+      ></textarea>
+    
+    <% if (data.changelog) { %>
+    <h4>Previous changes:</h4>
+    <textarea 
+      disabled 
+      class="changelog-prev"
+      ><%= data.changelog ||'' %></textarea>
+    <% } %>
+  </div>
+  
+  <h3>Source code</h3>
+  <div id="submit-source"><%= data.source ||'' %></div>
+
+  <div 
+    class="styled-button"
+    id="submit" 
+    data-scriptid="<%= data.ID ||'*' %>"
+    >submit</div>
+</div>
