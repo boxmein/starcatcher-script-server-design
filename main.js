@@ -385,8 +385,9 @@ window.addEventListener('load', function() {
       minLines: 20,
       maxLines: 500
     });
-    editor.setTheme('ace/theme/twilight'); // Close enough
+    editor.setTheme('ace/theme/twilight'); // Close enough to highlight.js
     editor.getSession().setMode('ace/mode/lua');
+    editor.getSession().setUseWrapMode(true);
 
     // On submit...
 
