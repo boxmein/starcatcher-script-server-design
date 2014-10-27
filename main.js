@@ -238,6 +238,17 @@ window.addEventListener('load', function() {
 
       $('#script-view').html(renderScript(scriptFound[0]));
       window.location.hash = id;
+
+      // event the edit button, too
+      $('#to-the-editmobile').click(_.partial(function(scr, evt) {
+        
+        // scr :: Script
+        console.log(scr, evt); 
+
+        window.location.hash = 'edit-'+scr.data.ID;
+        submitPage(evt, scr.data);
+
+      }, scriptFound[0]));
     }
     else {
       // didn't find? let's fetch it from the server
@@ -365,7 +376,7 @@ window.addEventListener('load', function() {
       $('#script-view').html('<h4>Pick a script on the left to view it.</h4>');
     });
 
-    $('#script-view').html(tSubmitView({data: {}}));
+    $('#script-view').html(tSubmitView({'data': data || {}}));
 
     // Set up Ace
 
