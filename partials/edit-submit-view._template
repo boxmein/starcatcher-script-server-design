@@ -44,5 +44,5 @@
     class="styled-button"
     id="submit" 
     data-scriptid="<%= data.ID ||'*' %>"
-    >submit</div>
+    ><% if (!data.ID) { %>submit<% } else { %>submit for approval<% } %></div>
 </div>
