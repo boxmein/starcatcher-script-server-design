@@ -402,7 +402,7 @@ window.addEventListener('load', function() {
         name: $('#submit-title').val(),
         author: $('#submit-author').val(),
         description: $('#submit-description').val(),
-        changelog: $('#submit-changelog').val() 
+        changelog: $('#submit-changelog').val()+'\n'+$('#changelog-prev').val()
       };
 
       console.log(submit_form, $.param(submit_form));
