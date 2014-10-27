@@ -32,7 +32,7 @@
     <h4>Previous changes:</h4>
     <textarea 
       disabled 
-      class="changelog-prev"
+      id="changelog-prev"
       ><%= data.changelog ||'' %></textarea>
     <% } %>
   </div>
