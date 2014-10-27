@@ -250,3 +250,13 @@ footer {
 #submit-title {
   width: calc(100% - 10px);
 }
+
+// edit a script
+#to-the-editmobile {
+  cursor: pointer;
+  float: right;
+  &:hover {
+    color: $accent;
+    text-decoration: underline;
+  }
+}
