@@ -29,28 +29,27 @@ The first two are used to make beautiful and compatible CSS from my SASS
 stylesheet, and `jade` isused to make a HTML page from the two .jade files 
 and all the partials. 
 
-You can obtain `myth` and `jade` as Node.js packages with the exact same name.
-Just run the below command to get them:
+To compile the Javascript source code into a more minimal version, I use the 
+[`uglify-js`][uglify] tool, which you can also obtain via the Node Package
+Manager. 
 
-    npm install -g myth jade
+You can obtain `myth`, `jade` and `uglify-js` as Node.js packages with the 
+exact same names. Just run the below command to get them:
+
+    npm install -g myth jade uglify-js
 
 SASS you can obtain in whichever way most comfortable, but if you use Ruby and
 RubyGems, then it's as easy as the command below:
 
     gem install sass
 
-As an option, you can also compile Javascript into a more minified version,
-with the [Google Closure Compiler][gc]. I've included the command to do it in
-the Makefile, but you're going to have to replace the `CLOSURE_COMPILER=` line 
-to make it work.
-
 After all those dependencies have been resolved, you can run `make` to get 
 HTML and CSS!
 
-[gc]: https://developers.google.com/closure/compiler/
 [sass]: http://sass-lang.com/
 [jade]: http://jade-lang.com/
 [myth]: http://myth.io/
+[uglify]: https://github.com/mishoo/UglifyJS
 
 ## License
 
