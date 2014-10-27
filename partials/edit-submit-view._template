@@ -19,13 +19,13 @@
     <h3>Description</h3>
     <textarea 
       id="submit-description" 
-      placeholder="Write a short description of your mod here."
+      placeholder="Write a short description of your script here."
       ><%= data.description ||'' %></textarea>
 
     <h3>Changelog</h3>
     <textarea 
       id="submit-changelog" 
-      placeholder="Explain recent changes to the mod."
+      placeholder="Explain recent changes to the script."
       ></textarea>
     
     <% if (data.changelog) { %>
