@@ -2,8 +2,6 @@
 # Inmake got a bit tedious...
 # Assumes you've got all the dependencies though :/ 
 
-
-CLOSURE_COMPILER=closure-compiler --compilation_level ADVANCED_OPTIMIZATIONS
 TEMPLATES=partials/edit-submit-view._template partials/list-item._template partials/script._template
 PACKAGE_FILES=index.css main.min.js index.html highlight.pack.js
 
@@ -29,5 +27,5 @@ intermediate.css: index.scss
 	sass index.scss intermediate.css --sourcemap=none
 
 main.min.js: main.js
-	$(CLOSURE_COMPILER) --js main.js --js_output_file main.min.js
+	uglifyjs -c -o main.min.js main.js
 
