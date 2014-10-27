@@ -97,6 +97,11 @@ window.addEventListener('load', function() {
       $('#sourcecodehere').html(SPINNER);
 
       getSourceByID(script.data.ID).then(function(src) {
+
+        // keep the source for later. speeds up loading existing scripts.
+        // also, consumes more RAM! :D
+        script.data.source = src;
+        
         $('#sourcecodehere').html(src);
         hljs.highlightBlock($('#sourcecodehere')[0]);
       }, function(err) {
