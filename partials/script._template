@@ -1,6 +1,7 @@
 <div class="script">
   <h2><%= title %><span class="version">v<%= version %></span>
       <span class="author">by <%= author %></span></h2>
+  <span id="to-the-editmobile">[open for editing]</span>
 
   <% if (description) { %> 
   <h3>Description</h3> 
