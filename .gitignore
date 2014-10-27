@@ -3,7 +3,7 @@
 
 *.map
 *.min.js
-*.tar.gz
+*.zip
 
 intermediate.css
 index.css
