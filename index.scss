@@ -1,10 +1,5 @@
 // SASS style for the thing
 // make
-// Override unsemantic's side padding rule
-.grid-container { padding: 0; }
-
-// Override Highlight.js background colors: I know better!
-.hljs { background: transparent !important; }
 
 // style_light vs style_dark
 @import "style_dark";
@@ -12,8 +7,27 @@
 $font: monospace;
 $h1font: "Lobster", sans-serif;
 
-$w1: 700px;
-$w2: 800px;
+// small size is handled by unsemantic.css
+$small-breakpoint: 768px;
+
+// medium size, from 768 til 1440px
+// max-width!
+$medium-size: 900px;
+$medium-breakpoint: 1440px;
+
+// large size, scale with the screen, > 1440px
+$large-size: 62.5%;
+
+// Override unsemantic's side padding rule
+.grid-container { 
+  padding: 0; 
+  margin: 0; 
+  max-width: $medium-breakpoint * 2; 
+}
+
+// Override Highlight.js background colors: I know better!
+.hljs { background: transparent !important; }
+
 
 body {
   font-family: $font;
@@ -23,7 +37,12 @@ body {
 
 // Header!
 header {
-  max-width: $w1;
+  max-width: $medium-size;
+  
+  @media screen and (min-width: $medium-breakpoint) {
+    max-width: $large-size;
+  }
+
   margin: 50px auto;
   padding: 15px;
 
@@ -71,7 +90,10 @@ header {
 
 // Script browser stuff
 main {
-  max-width: 900px;
+  max-width: $medium-size;
+  @media screen and (min-width: $medium-breakpoint) {
+    max-width: $large-size;
+  }
   margin: 15px auto;
   background-color: $view_bg;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.2);
@@ -145,12 +167,19 @@ main {
   }
 }
 
-// Look at a script UP CLOSE
-#script-view {
-
+#script-thing {
   background-color: $view_bg;
   height: 100%;
   min-height: 400px;
+}
+
+// Look at a script UP CLOSE
+#script-view {
+
+  @media screen and (min-width: $medium-breakpoint + 300px) {
+    margin: 0 auto; 
+    max-width: 700px;
+  }
 
   h2 {
     color: $accent;
@@ -205,7 +234,7 @@ main {
 }
 
 footer {
-  max-width: 900px; 
+  max-width: $medium-size; 
   margin: 0 auto;
   color: lighten($bg, 10%);
   text-align: right;
