@@ -27,5 +27,5 @@ intermediate.css: index.scss
 	sass index.scss intermediate.css --sourcemap=none
 
 main.min.js: main.js
-	uglifyjs -c -o main.min.js main.js
+	uglifyjs -m -c -o main.min.js main.js
 
