@@ -22,11 +22,22 @@ window.addEventListener('load', function() {
   // :: [Script]
   state.scriptList = [];
 
+  // Currently viewed script, for when XHRs collide
+  state.currentScriptID = -1;
+
+
+
   // Wrapper around history.pushState
   function pushState(stateObj, name, address) {
     if (history) {
+      
+      if (history.state == stateObj) 
+        return;
+
       history.pushState(stateObj, name, address);
     }
+    else 
+      window.location.hash = address;
   }
 
   /*
@@ -59,9 +70,11 @@ window.addEventListener('load', function() {
     }, vals);
   }
 
-
   // Default script
   Script.zero = new Script();
+
+
+
 
 
 
@@ -79,6 +92,8 @@ window.addEventListener('load', function() {
 
 
 
+
+
   function PendingScript(id) {
     if (!id || id < 0)
       throw new Error('invalid ID, can\'t uniquely identify a script to fetch!');
@@ -92,23 +107,28 @@ window.addEventListener('load', function() {
 
 
 
+
+
   // Render a Script into HTML, using the tScript template.
   // :: Script -> HTML
   function renderScript(script) {
 
+
     if (!script) 
       throw new Error('passed false value, Script expected!');
-    
+
     if (script.data.source == '') {
 
       $('#sourcecodehere').html(SPINNER);
 
+      // TODO: fix race conditions (click on one, then another script, suddenly
+      // script's source is not of the one displayed)
       getSourceByID(script.data.ID).then(function(src) {
 
         // keep the source for later. speeds up loading existing scripts.
         // also, consumes more RAM! :D
         script.data.source = src;
-        
+
         $('#sourcecodehere').html(src);
         hljs.highlightBlock($('#sourcecodehere')[0]);
       }, function(err) {
@@ -131,6 +151,9 @@ window.addEventListener('load', function() {
 
 
 
+
+
+
   // Takes a list of scripts and generates HTML for the script list. 
   // :: [Script] -> HTML
   function renderScriptList(slist) {
@@ -138,6 +161,8 @@ window.addEventListener('load', function() {
       return tListItem(each.data);
     });
   }
+
+
 
 
 
@@ -176,6 +201,8 @@ window.addEventListener('load', function() {
 
 
 
+
+
   // Fetch the source code for a given script ID
   // :: Number -> $.Deferred String
   function getSourceByID(id) {
@@ -197,9 +224,9 @@ window.addEventListener('load', function() {
     var deferred = new $.Deferred();
 
     n = n ||10; 
-
     start = 1 + (start || state.lastStart ||0);
     
+
     // move lastStart by n elements
     state.lastStart += n;
 
@@ -242,27 +269,24 @@ window.addEventListener('load', function() {
 
     // sure, render it!
     if (scriptFound) {
+      var viewhtml = renderScript(scriptFound[0]);
+      $('#script-view').html(viewhtml);
 
-      $('#script-view').html(renderScript(scriptFound[0]));
-      
       pushState({
-        'render': renderScript,
+        'scriptView': viewhtml,
         'script': scriptFound[0],
-        'view': 'show script'
+        'view': 'show script',
+
+        'activeNav': '#browse-page',
+        'activeScriptID': scriptFound[0].data.ID
       }, "view script", '#'+id);
+
 
       // event the edit button, too
       $('#to-the-editmobile').click(_.partial(function(scr, evt) {
-        
-        pushState({
-          'render': _.partial(submitPage, evt)
-          'script': script,
-          'view': 'edit script'
-        }, "edit script", "#edit-" + script.data.ID);
-
         submitPage(evt, scr.data);
-
       }, scriptFound[0]));
+
     }
     else {
       // didn't find? let's fetch it from the server
@@ -289,6 +313,11 @@ window.addEventListener('load', function() {
     $('#script-list-ul').html(renderScriptList(state.scriptList))
                         .find('li')
                         .click(function(evt) {
+
+      // if we're already looking at the script, no need to re-open it!
+      if (evt.target.className.indexOf('viewing')!==-1) 
+        return;
+
 
       var $target = $(evt.target);
 
@@ -322,7 +351,7 @@ window.addEventListener('load', function() {
       
       objs = _.map(lines, function(each) {
         var scr = Script.fromXHR(each);
-        console.log('fetched script', scr); 
+        // console.log('fetched script', scr); 
         max = Math.max(max, scr.data.ID);
         return Script.fromXHR(each);
       });
@@ -334,13 +363,18 @@ window.addEventListener('load', function() {
     return deferred;
   }
 
+
+
+
   // Mobile collapse functionality
   $('#collapse-list').click(function(evt) {
     $(evt.target.parentNode).toggleClass('collapsed');
   });
 
-  // Test loading IDs
-  $('#next-page').click(function(evt) {
+
+
+
+  $('#next-page').click(function() {
     getIDs().done(function(list) {
 
       _.forEach(list, function(ea) {
@@ -368,6 +402,31 @@ window.addEventListener('load', function() {
 
 
 
+
+
+  // Just, uh, show something on the browse page. Not a script.
+  function browsePage() {
+    var view = '<h4>Pick a script from the left to view it here.</h4>';
+
+    highlightNav('#browse-page');
+
+    $('#script-view').html(view);
+
+    pushState({
+      'activeNav': '#browse-page',
+      'scriptView': view,
+      'view': 'list scripts'
+    }, 'list scripts', '#');
+  }
+
+  $('#browse-page').click(browsePage);
+
+
+
+
+
+
+
   /*
 
     Submit page functionality
@@ -375,20 +434,24 @@ window.addEventListener('load', function() {
   */
 
   function submitPage(evt, data) {
-    if (evt && evt.preventDefault) evt.preventDefault();
-    
-    window.scrollTo(0, 0);
+    if (evt && evt.preventDefault) 
+      evt.preventDefault();
 
-    $('nav .active').removeClass('active');
-    $(this).addClass('active');
+    // you can pass script objects into here, now!
+    if (data && data.data) 
+      data = data.data;
 
-    $('#browse-page').one('click', function() {
-      $('nav .active').removeClass('active');
-      $(this).addClass('active');
-      $('#script-view').html('<h4>Pick a script on the left to view it.</h4>');
-    });
+    highlightNav('#submit-page');
 
-    $('#script-view').html(tSubmitView({'data': data || {}}));
+    var scriptView = tSubmitView({'data': data || {}});
+    $('#script-view').html(scriptView);
+
+    pushState({
+      'scriptView': scriptView,
+      'view': 'submit script',
+      'activeNav': '#submit-page',
+      'script': { 'data': data } || false
+    }, 'submit script', '#submit-page');
 
     // Set up Ace
 
@@ -432,15 +495,67 @@ window.addEventListener('load', function() {
       });
     });
 
-    pushState({
-      'render': _.partial(submitPage, evt, data),
-      'script': null,
-      'view': 'submit script'
-    }, "submit script", "#submit-page");
   }
 
   $('#submit-page').click(submitPage);
-  
+
+
+
+
+
+  // List some 'renderers' for popState 
+  // :: Script -> String
+  var renderers = {
+    'show script': tScript,
+    'submit script': _.partial(submitPage, null)
+  };
+
+
+
+  // Back button functionality
+  window.onpopstate = function(evt) {
+    
+    console.log(evt); 
+
+    if (!evt.state) {
+      browsePage();
+      return;
+    }
+
+
+    // If we have a navigation button that should be .active, make it .active!
+    if (evt.state.activeNav) {
+      highlightNav(evt.state.activeNav);
+    }
+
+    // If we ve a script-list item that should be .active, make it .active!
+    if (evt.state.activeScriptID) {
+      highlightScript(evt.state.activeScriptID);
+    }
+
+    // If we have a scriptView stored, then display it.
+    if (evt.state.scriptView) {
+      $('#script-view').html(evt.state.scriptView);
+
+      var el = $('#sourcecodehere')[0];
+      if (el)  
+        hljs.highlightBlock(el);
+
+      return;
+    }
+
+    if (evt.state.script && evt.state.view == 'view script') {
+      displayScriptByID(evt.state.script.data.ID);
+    }
+
+  };
+
+
+
+
+
+
+
   getPreliminaryData().done(function(data) {
     [].push.apply(state.scriptList, data);
     
@@ -465,5 +580,10 @@ window.addEventListener('load', function() {
   }).fail(function(err) {
     $('#script-view').html('error downloading initial set of data: ' + err);
   });
+
+
+
+
+
 
 });
