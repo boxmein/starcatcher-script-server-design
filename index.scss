@@ -266,6 +266,13 @@ footer {
     width: calc(100% - 20px); 
     resize: vertical;
   }
+  
+  // Hidden labels for screen readers or print versions of this document.
+  label {
+    @media screen {
+      display: none;
+    }
+  }
 }
 
 #submit-source {

@@ -4,40 +4,51 @@
 
   <div class="metadata">
     
+    <label for="submit-title">Script title</label> 
     <input
       type="text" 
+      name="submit-title"
       id="submit-title" 
       value="<%= data.title ||'' %>" 
       placeholder="Title">
 
+    <label for="submit-author">Script author</label>
     <input 
       type="text"
       id="submit-author"
+      name="submit-author"
       value="<%= data.author ||'' %>"
       placeholder="Author">
 
     <h3>Description</h3>
+    <label for="submit-description">Short description of the script.</label>
     <textarea 
       id="submit-description" 
+      name="submit-description"
       placeholder="Write a short description of your script here."
       ><%= data.description ||'' %></textarea>
 
     <h3>Changelog</h3>
+    <label for="submit-changelog">Explain some recent changes to the script.</label>
     <textarea 
       id="submit-changelog" 
+      name="submit-changelog"
       placeholder="Explain recent changes to the script."
       ></textarea>
     
     <% if (data.changelog) { %>
     <h4>Previous changes:</h4>
+    <label for="changelog-prev">Some previous changes have been:</label>
     <textarea 
       disabled 
+      name="changelog-prev"
       id="changelog-prev"
       ><%= data.changelog ||'' %></textarea>
     <% } %>
   </div>
   
   <h3>Source code</h3>
+  <label>Enter the source code into the editor below.</label>
   <div id="submit-source"><%= data.source ||'' %></div>
 
   <div 
