@@ -22,6 +22,13 @@ window.addEventListener('load', function() {
   // :: [Script]
   state.scriptList = [];
 
+  // Wrapper around history.pushState
+  function pushState(stateObj, name, address) {
+    if (history) {
+      history.pushState(stateObj, name, address);
+    }
+  }
+
   /*
     Represents a script file.
 
@@ -237,15 +244,22 @@ window.addEventListener('load', function() {
     if (scriptFound) {
 
       $('#script-view').html(renderScript(scriptFound[0]));
-      window.location.hash = id;
+      
+      pushState({
+        'render': renderScript,
+        'script': scriptFound[0],
+        'view': 'show script'
+      }, "view script", '#'+id);
 
       // event the edit button, too
       $('#to-the-editmobile').click(_.partial(function(scr, evt) {
         
-        // scr :: Script
-        console.log(scr, evt); 
+        pushState({
+          'render': _.partial(submitPage, evt)
+          'script': script,
+          'view': 'edit script'
+        }, "edit script", "#edit-" + script.data.ID);
 
-        window.location.hash = 'edit-'+scr.data.ID;
         submitPage(evt, scr.data);
 
       }, scriptFound[0]));
@@ -363,8 +377,6 @@ window.addEventListener('load', function() {
   function submitPage(evt, data) {
     if (evt && evt.preventDefault) evt.preventDefault();
     
-    // Still add a hash to show we're on a different page
-    window.location.hash = '#submit-page';
     window.scrollTo(0, 0);
 
     $('nav .active').removeClass('active');
@@ -419,6 +431,12 @@ window.addEventListener('load', function() {
         $(this).html('submission failed: ' + err);
       });
     });
+
+    pushState({
+      'render': _.partial(submitPage, evt, data),
+      'script': null,
+      'view': 'submit script'
+    }, "submit script", "#submit-page");
   }
 
   $('#submit-page').click(submitPage);
