@@ -40,6 +40,28 @@ window.addEventListener('load', function() {
       window.location.hash = address;
   }
 
+
+  // Highlight an item in the top navigation thing.
+  function highlightNav(id) {
+    $('nav .active').removeClass('active');
+    $(id).addClass('active');
+  }
+
+
+
+  // Highlight an item in the left-side script list.
+  function highlightScript(id) {
+
+    var $t = $('#script-list-ul li[data-id="'+id+'"]');
+
+    if (!$t) return;
+    
+    $t.siblings().removeClass('viewing');
+    $t.addClass('viewing');
+  }
+  
+
+
   /*
     Represents a script file.
 
