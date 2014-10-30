@@ -488,7 +488,7 @@ window.addEventListener('load', function() {
 
     // On submit...
 
-    $('#submit').click(function(evt) {
+    $('#submit').click(function() {
       $(this).html(SPINNER);
 
       // collect the form elements
