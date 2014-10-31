@@ -427,7 +427,10 @@ window.addEventListener('load', function() {
 
 
   // Just, uh, show something on the browse page. Not a script.
-  function browsePage() {
+  function browsePage(e) {
+    if (e && e.preventDefault) 
+      e.preventDefault();
+
     var view = '<h4>Pick a script from the left to view it here.</h4>';
 
     highlightNav('#browse-page');
@@ -536,7 +539,6 @@ window.addEventListener('load', function() {
 
   // Back button functionality
   window.onpopstate = function(evt) {
-    
     console.log(evt); 
 
     if (!evt.state) {
@@ -602,10 +604,5 @@ window.addEventListener('load', function() {
   }).fail(function(err) {
     $('#script-view').html('error downloading initial set of data: ' + err);
   });
-
-
-
-
-
 
 });
