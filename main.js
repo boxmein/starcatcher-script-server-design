@@ -7,8 +7,8 @@ window.addEventListener('load', function() {
   window.appState = {};
 
   var SPINNER = '<div class="spinner"></div>';
-  var MAINdotlua = '../main.lua';
-  var PASTEdotlua = '../paste.lua';
+  var MAINdotlua = 'main.lua';
+  var PASTEdotlua = 'paste.lua';
 
   // Underscore templates for a single list item, and a script
   var tListItem = _.template($('#listitemtemplate').html());
