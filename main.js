@@ -539,13 +539,7 @@ window.addEventListener('load', function() {
 
   // Back button functionality
   window.onpopstate = function(evt) {
-    console.log(evt); 
-
-    if (!evt.state) {
-      browsePage();
-      return;
-    }
-
+    // console.log(evt); 
 
     // If we have a navigation button that should be .active, make it .active!
     if (evt.state.activeNav) {
