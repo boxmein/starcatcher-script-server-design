@@ -15,8 +15,15 @@ The rest of the script server's server-side. This is usually the file
 
 ### The files!
 
-To run a few programs to generate the rest of the files from this source.
-Or, as an alternative, get the package.tar.gz file from under releases. 
+tl;dr:
+
+    npm install -g myth jade uglify-js
+    gem install sass
+    make
+
+
+Now, you need to run a few programs to generate the rest of the files from this source.
+Or, as an alternative, get the package.tar.gz file from under [releases][releases]. 
 This contains the newest generation result, without the source code. Useful
 if you're @cracker64!
 
@@ -26,7 +33,7 @@ HTML / CSS from the weird languages I use.
 
 Those programs are: [`sass`][sass], [`myth`][myth] and [`jade`][jade]. 
 The first two are used to make beautiful and compatible CSS from my SASS 
-stylesheet, and `jade` isused to make a HTML page from the two .jade files 
+stylesheet, and `jade` is used to make a HTML page from the two .jade files 
 and all the partials. 
 
 To compile the Javascript source code into a more minimal version, I use the 
@@ -50,6 +57,7 @@ HTML and CSS!
 [jade]: http://jade-lang.com/
 [myth]: http://myth.io/
 [uglify]: https://github.com/mishoo/UglifyJS
+[releases]: https://github.com/boxmein/starcatcher-script-server-design/releases
 
 ## License
 
