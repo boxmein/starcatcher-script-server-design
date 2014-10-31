@@ -2,7 +2,7 @@
 
 ![watch in awe as this design melts your eyeballs off!](http://i.imgur.com/tpKXDpa.png)
 
-Source code for future starcatcher.us/scripts/index.html
+The source code repository for http://starcatcher.us/scripts/ . 
 
 ## Hosting
 
