@@ -20,7 +20,7 @@ index.html: index.jade layout.jade $(TEMPLATES)
 
 index.css: intermediate.css
 	@echo auto-prefixing the css...
-	myth intermediate.css index.css
+	myth -c -v intermediate.css index.css
 
 intermediate.css: index.scss
 	@echo generating the css...
