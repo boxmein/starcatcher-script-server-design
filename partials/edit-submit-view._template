@@ -34,17 +34,7 @@
       id="submit-changelog" 
       name="submit-changelog"
       placeholder="Explain recent changes to the script."
-      ></textarea>
-    
-    <% if (data.changelog) { %>
-    <h4>Previous changes:</h4>
-    <label for="changelog-prev">Some previous changes have been:</label>
-    <textarea 
-      disabled 
-      name="changelog-prev"
-      id="changelog-prev"
-      ><%= data.changelog ||'' %></textarea>
-    <% } %>
+      ><%= data.changelog || '' %></textarea>
   </div>
   
   <h3>Source code</h3>
