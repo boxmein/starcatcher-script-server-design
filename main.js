@@ -491,10 +491,11 @@ window.addEventListener('load', function() {
 
     // On submit...
 
-    $('#submit').click(function() {
+    $('#submit').click(function onSubmitPageSubmitClick() {
       $(this).html(SPINNER);
 
-      // collect the form elements
+      // Turn off multiple submissions
+      $(this).off('click');
 
       var submit_form = {
         ID: $(this).data('scriptid'),
@@ -505,18 +506,22 @@ window.addEventListener('load', function() {
         changelog: $('#submit-changelog').val()
       };
 
-      console.log(submit_form, $.param(submit_form));
-
       $.ajax(PASTEdotlua, {
         'method': 'POST', 
         'data': submit_form
       }).then(function(data, txtstatus){
-        if (txtstatus == 'success')
+        if (txtstatus == 'success') {
           $(this).html('this submission is now in the mod queue :D');
-        else
+          // On a successful submit, don't add the submit button back
+        }
+        else {
           $(this).html('something went wrong. look! a word!: ' + txtstatus);
+          $(this).click(onSubmitPageSubmitClick);
+        }
+
       },function(err){
         $(this).html('submission failed: ' + err);
+        $(this).click(onSubmitPageSubmitClick);
       });
     });
 
