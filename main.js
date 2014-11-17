@@ -260,12 +260,16 @@ window.addEventListener('load', function() {
           .fail(deferred.reject)
           .done(function(data) {
 
-      console.log('got response, now parsing it', data);
 
-      // Parse the data into an array of ints
-      // also, a necessary evil.
+      // Data is now like preliminary data: newline-separated list of 
+      // metadata
 
-      var arr = eval("(function(){return [" + data + "];})()");
+      var objs = data.split('\n'), maxID = -Infinity;
+      objs = _.map(objs, function(each) {
+        var obj = Script.fromXHR(each); 
+        max = Math.max(max, obj.data.ID);
+        return obj;
+      });
 
       state.lastStart = max;
 
