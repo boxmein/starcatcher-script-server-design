@@ -29,4 +29,6 @@ html
       footer
         block footer
           .spinner(style='display: inline-block')
-          | &nbsp;v1.7.0-beta - design &copy; boxmein 1416266966
+          - var date = Math.floor(Date.now() / 1000);
+          //- version is defined as an environment var or argument to make.
+          | &nbsp;#{version} - design &copy; boxmein #{date}
