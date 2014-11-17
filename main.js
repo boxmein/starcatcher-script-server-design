@@ -492,10 +492,12 @@ window.addEventListener('load', function() {
     // On submit...
 
     $('#submit').click(function onSubmitPageSubmitClick() {
-      $(this).html(SPINNER);
+      var $that = $(this);
+
+      $that.html(SPINNER);
 
       // Turn off multiple submissions
-      $(this).off('click');
+      $that.off('click');
 
       var submit_form = {
         ID: $(this).data('scriptid'),
@@ -511,17 +513,17 @@ window.addEventListener('load', function() {
         'data': submit_form
       }).then(function(data, txtstatus){
         if (txtstatus == 'success') {
-          $(this).html('this submission is now in the mod queue :D');
+          $that.html('this submission is now in the mod queue :D');
           // On a successful submit, don't add the submit button back
         }
         else {
-          $(this).html('something went wrong. look! a word!: ' + txtstatus);
-          $(this).click(onSubmitPageSubmitClick);
+          $that.html('something went wrong. look! a word!: ' + txtstatus);
+          $that.click(onSubmitPageSubmitClick);
         }
 
       },function(err){
-        $(this).html('submission failed: ' + err);
-        $(this).click(onSubmitPageSubmitClick);
+        $that.html('submission failed: ' + err);
+        $that.click(onSubmitPageSubmitClick);
       });
     });
 
