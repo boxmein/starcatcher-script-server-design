@@ -16,7 +16,7 @@ package.zip: $(PACKAGE_FILES)
 
 index.html: index.jade layout.jade $(TEMPLATES)
 	@echo generating the index page...
-	jade index.jade
+	jade index.jade -O "{version: '$(VERSION)'}"
 
 index.css: intermediate.css
 	@echo auto-prefixing the css...
