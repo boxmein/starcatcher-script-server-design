@@ -254,7 +254,7 @@ window.addEventListener('load', function() {
 
     // console.log('starting getIDs with start, count', start, n);
 
-    $('#next-page').html(SPINNER);
+    
 
     $.ajax(MAINdotlua + '?IDs=' + (start !== 0 ? start + '-' : '') + (n+start))
           .fail(deferred.reject)
@@ -267,11 +267,7 @@ window.addEventListener('load', function() {
 
       var arr = eval("(function(){return [" + data + "];})()");
 
-      if (arr.length == 0) {
-        $('#next-page').off('click').addClass('disabled').html('that\'s all!');
-      }
-      else 
-        $('#next-page').html('more');
+      state.lastStart = max;
 
       deferred.resolve(arr);
     });
@@ -397,7 +393,16 @@ window.addEventListener('load', function() {
 
 
   $('#next-page').click(function() {
+    $('#next-page').html(SPINNER);
+    
     getIDs().done(function(list) {
+
+      if (arr.length == 0) {
+        $('#next-page').off('click').addClass('disabled').html('that\'s all!');
+      }
+      else {
+        $('#next-page').html('more');
+      }
 
       _.forEach(list, function(ea) {
         var scr = new PendingScript(ea); 
