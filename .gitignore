@@ -9,3 +9,6 @@ intermediate.css
 index.css
 
 index.html
+
+# sublime stuff
+*.sublime-*
