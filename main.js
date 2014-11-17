@@ -245,8 +245,8 @@ window.addEventListener('load', function() {
   function getIDs(n, start) {
     var deferred = new $.Deferred();
 
-    n = n ||10; 
-    start = 1 + (start || state.lastStart ||0);
+    n = n || 10; 
+    start = 1 + (start || state.lastStart || 0);
     
 
     // move lastStart by n elements
