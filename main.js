@@ -250,9 +250,9 @@ window.addEventListener('load', function() {
     
 
     // move lastStart by n elements
-    state.lastStart += n;
+    // state.lastStart += n;
 
-    console.log('starting getIDs with start, count', start, n);
+    // console.log('starting getIDs with start, count', start, n);
 
     $('#next-page').html(SPINNER);
 
