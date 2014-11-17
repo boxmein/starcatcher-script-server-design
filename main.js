@@ -264,7 +264,7 @@ window.addEventListener('load', function() {
       // Data is now like preliminary data: newline-separated list of 
       // metadata
 
-      var objs = data.split('\n'), maxID = -Infinity;
+      var objs = data.split('\n'), max = -Infinity;
       objs = _.map(objs, function(each) {
         var obj = Script.fromXHR(each); 
         max = Math.max(max, obj.data.ID);
@@ -273,7 +273,7 @@ window.addEventListener('load', function() {
 
       state.lastStart = max;
 
-      deferred.resolve(arr);
+      deferred.resolve(objs);
     });
 
     return deferred;
