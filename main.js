@@ -364,25 +364,7 @@ window.addEventListener('load', function() {
   // Fetch a first set of data to display when nothing extra has loaded
   // :: () -> $.Deferred [Script]
   function getPreliminaryData() {
-    var deferred = new $.Deferred();
-    $.ajax(MAINdotlua)
-           .fail(deferred.reject)
-           .done(function(data) {
-      var objs = [], lines = data.split('\n');
-      var max = 0;
-      
-      objs = _.map(lines, function(each) {
-        var scr = Script.fromXHR(each);
-        // console.log('fetched script', scr); 
-        max = Math.max(max, scr.data.ID);
-        return Script.fromXHR(each);
-      });
-      // max should be the last ID we fetched preliminarily
-      state.lastStart = max;
-      
-      deferred.resolve(objs);
-    });
-    return deferred;
+    return getIDs(15, 0);
   }
 
 
@@ -398,35 +380,18 @@ window.addEventListener('load', function() {
 
   $('#next-page').click(function() {
     $('#next-page').html(SPINNER);
-    
+
     getIDs().done(function(list) {
 
-      if (arr.length == 0) {
+      if (list.length == 0) {
         $('#next-page').off('click').addClass('disabled').html('that\'s all!');
       }
       else {
         $('#next-page').html('more');
       }
 
-      _.forEach(list, function(ea) {
-        var scr = new PendingScript(ea); 
-        state.scriptList.push(scr);
-
-        scr.resolve().done(function(finished) {
-          var i = state.scriptList.indexOf(scr);
-          
-          if (i === -1) {
-            // how did I get here?
-            state.scriptList.push(finished);
-          }
-          else {
-            state.scriptList[i] = finished;
-          }
-
-          refreshScriptList();
-        });
-      });
-      
+      _.forEach(list, function(ea) { state.scriptList.push(ea); });
+      refreshScriptList();
     });
   });
 
