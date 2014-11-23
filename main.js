@@ -290,7 +290,7 @@ window.addEventListener('load', function() {
       return ea.data.ID == id; });
 
     // sure, render it!
-    if (scriptFound) {
+    if (scriptFound.length > 0) {
       var viewhtml = renderScript(scriptFound[0]);
       $('#script-view').html(viewhtml);
 
