@@ -260,6 +260,10 @@ window.addEventListener('load', function() {
           .fail(deferred.reject)
           .done(function(data) {
 
+      // Didn't find anything - send empty array to disable fetching more.
+      if (data === '') {
+        deferred.resolve([]);
+      }
 
       // Data is now like preliminary data: newline-separated list of 
       // metadata
