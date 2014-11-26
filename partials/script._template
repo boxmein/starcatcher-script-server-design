@@ -1,7 +1,7 @@
 <div class="script">
   <span id="to-the-editmobile">[open for editing]</span>
   <h2>
-    <a href="/scripts/#<%= ID %>"><%= title %></a><span class="version">v<%= version %></span>
+    <a href="./#<%= ID %>"><%= title %></a><span class="version">v<%= version %></span>
     <span class="author">by <%= author %> </span>
   </h2>
 
@@ -16,7 +16,7 @@
   <% } %>
 
   <h3>Source code 
-      <a class="download" href="/scripts/main.lua?get=<%=ID%>&amp;dl=1">[download]</a>
+      <a class="download" href="./main.lua?get=<%=ID%>&amp;dl=1">[download]</a>
   </h3>
   <div class="source">
     <pre><code class="lua" id="sourcecodehere"><%= source %>
