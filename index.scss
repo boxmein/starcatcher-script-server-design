@@ -183,6 +183,15 @@ main {
 
   h2 {
     color: $accent;
+    a { 
+      color: inherit; 
+      text-decoration: none;
+
+      // lol nesting
+      &:hover { 
+        text-decoration: underline; 
+      }
+    }
   }
 
   .version {
@@ -288,9 +297,16 @@ footer {
 }
 
 // edit a script
-#to-the-editmobile {
+// also, download a script
+#to-the-editmobile, .download {
   cursor: pointer;
   float: right;
+  
+  color: inherit;
+  text-decoration: none;
+  
+  margin-left: 0.5em;
+  
   &:hover {
     color: $accent;
     text-decoration: underline;
